@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Monthsary 💖 — Unlock with 030725</title>
+  <style>
+    :root{
+      --bg:#fff0f5;
+      --card:#ffe4ec;
+      --accent:#ff69b4;
+      --muted:#b56576;
+    }
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial}
+    body{background:linear-gradient(180deg,#ffe6f0 0%, #ffd6e8 60%);color:#4a0e27;display:flex;align-items:center;justify-content:center}
+    .wrap{width:100%;max-width:1100px;margin:32px;padding:28px;border-radius:18px;background:linear-gradient(135deg, rgba(255,192,203,0.25), rgba(255,182,193,0.15));box-shadow:0 10px 30px rgba(255,105,180,0.3);position:relative;overflow:hidden}
+    header{display:flex;align-items:center;gap:18px}
+    .logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ffc0cb);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+    h1{margin:0;font-size:28px;color:#b03060}
+    p.lead{margin:6px 0 20px;color:var(--muted)}
+
+    .lock-overlay{position:absolute;inset:0;background:rgba(255,182,193,0.85);display:flex;align-items:center;justify-content:center;z-index:30;backdrop-filter:blur(6px);transition:opacity .6s ease}
+    .lock-box{background:linear-gradient(180deg,#ffe4ec,#ffd6e8);padding:28px;border-radius:14px;width:360px;box-shadow:0 8px 30px rgba(255,105,180,0.4);text-align:center}
+    .lock-box h2{margin:0 0 8px;color:#b03060}
+    .code-dots{display:flex;gap:8px;justify-content:center;margin:12px 0;}
+    .dot{width:16px;height:16px;border-radius:50%;background:#ffb6d5;box-shadow:0 2px 7px #ffc0cb48 inset;}
+    .dot.active{background:#ff69b4;}
+    .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;}
+    .keypad-btn{padding:16px 0;border-radius:10px;background:#ffe4ec;font-size:19px;font-weight:600;color:#b03060;border:none;box-shadow:0 1px 4px #ffc0cb33;cursor:pointer;transition:.2s;}
+    .keypad-btn:hover{background:#ffd6e8;}
+    .keypad-btn:active{transform:scale(0.95);}
+    .keypad-btn.back{font-size:22px;color:#b56576;}
+
+    .lock-photo{width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;background:radial-gradient(circle at 30% 30%,#ffe3ef 60%, #ffc0cb 100%);}
+    .lock-photo img{width:100%;height:100%;object-fit:cover;}
+
+    .virtual-gift-title{font-size:22px;color:#b03076;font-weight:900;background:linear-gradient(90deg,#f6a3e0 60%, #ffe8f5 120%);border-radius:20px;padding:6px 22px 6px 22px;margin-bottom:18px;box-shadow:0 2px 8px #ffe8ef50;}
+    .lock-brand{font-family:'Pacifico',cursive;font-size:22px;color:#ba7fa3;margin:18px 0 8px;}
+    .lock-brand-sub{font-size:14px;color:#a0879a;}
+    .lock-box .extra{margin-top:12px;margin-bottom:12px;}
+    .hint{margin-top:10px;color:#b56576;font-size:13px}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));padding:18px;border-radius:14px}
+    .message{font-size:20px;line-height:1.4;color:#4a0e27}
+    .big-count{font-size:64px;font-weight:800;margin:6px 0;color:#ff69b4;}
+    .monthsary-date{margin:8px 0;font-size:20px;color:#b03060;}
+    .gallery{display:flex;flex-direction:column;gap:12px}
+    .photo{height:220px;border-radius:12px;overflow:hidden;background-size:cover;background-position:center}
+
+    .slideshow{position:relative;border-radius:12px;overflow:hidden;height:420px}
+    .slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transform:scale(1.04);transition:all .9s ease}
+    .slide.active{opacity:1;transform:scale(1)}
+
+    footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px}
+
+    #confetti{position:absolute;inset:0;pointer-events:none;z-index:10}
+    .hearts{position:absolute;right:24px;bottom:24px;display:flex;flex-direction:column;gap:10px;pointer-events:none}
+
+    button.unlock{padding:12px 14px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),#ffc0cb);color:#fff;font-weight:700;cursor:pointer;transition:.2s;}
+    button.unlock:hover{opacity:0.9;}
+
+    /* Message Page Styles */
+    .message-page{display:none;width:100%;height:100%;position:fixed;top:0;left:0;background:linear-gradient(180deg,#ffe6f0 0%, #ffd6e8 60%);z-index:100;align-items:center;justify-content:center;padding:20px;}
+    .message-page.active{display:flex;}
+    .message-container{background:linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,240,245,0.9));padding:40px;border-radius:24px;max-width:600px;width:100%;box-shadow:0 15px 40px rgba(255,105,180,0.4);text-align:center;animation:slideIn 0.5s ease;}
+    @keyframes slideIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+    .message-container h2{font-size:32px;color:#b03060;margin:0 0 20px;font-weight:800;}
+    .message-container p{font-size:18px;line-height:1.8;color:#4a0e27;margin:15px 0;}
+    .message-container .heart-decoration{font-size:40px;margin:20px 0;}
+    .message-close-btn{margin-top:30px;padding:12px 28px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),#ffc0cb);color:#fff;font-weight:700;cursor:pointer;font-size:16px;transition:.2s;}
+    .message-close-btn:hover{opacity:0.9;}
+    .back-btn{padding:10px 20px;border-radius:8px;border:none;background:#ffe4ec;color:#b03060;font-weight:600;cursor:pointer;margin-bottom:20px;transition:.2s;}
+    .back-btn:hover{background:#ffd6e8;}
+
+    @media (max-width:900px){.hero{grid-template-columns:1fr;}.slideshow{height:300px}.wrap{margin:12px}.message-container{padding:24px;}.message-container h2{font-size:24px;}.message-container p{font-size:16px;}}
+  </style>
+  <!-- Optional: Google Fonts for Pacifico cursive branding -->
+  <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Message Page (Page 2) -->
+  <div class="message-page" id="messagePage">
+    <div class="message-container">
+      <button class="back-btn" onclick="goBackToMain()">← Back</button>
+      <h2>💌 A Message For You 💌</h2>
+      <div class="heart-decoration">💖</div>
+      <p>Happy Monthsary wifeyyy! 💗</p>
+      <p>I'm so grateful for every moment we share together. Every day with you is a blessing, and I cherish all the memories we've created so far.</p>
+      <p>Your smile brightens my day, and your presence fills my heart with endless joy. Thank you for being my person, my support,my peace, my kaharutan, and my everything.</p>
+      <p>I can't wait for all the beautiful moments and memories ahead of us. Together, we'll create a lifetime of happiness.</p>
+      <p style="font-weight:700;color:#ff69b4;">You mean the world to me! 💞</p>
+      <button class="message-close-btn" onclick="goBackToMain()">Close</button>
+    </div>
+  </div>
+
+  <!-- Lock Screen (Page 1) -->
+  <div class="lock-overlay" id="lock">
+    <div class="lock-box">
+      <div class="virtual-gift-title">HAPPY MONTHSARY 💕💗</div>
+      <div class="lock-photo">
+        <!-- Change src to your image if desired -->
+        <img src="/9f9af963-10d5-4b0a-b7cc-d6792de5cd1c.png" alt="Us Photo" />
+      </div>
+      <div class="code-dots" id="codeDots">
+        <!-- Dots will be rendered by JS -->
+      </div>
+      <div class="keypad" id="keypad">
+        <!-- Keypad will be rendered by JS -->
+      </div>
+      <div class="hint">Hint: Our special date 💞</div>
+      <div class="lock-brand">made with love</div>
+      <div class="lock-brand-sub">Wifeyy</div>
+      <div class="extra" style="color:#b56576; font-size:14px;">I<br>LOVEYOU<br>SOMUCHHH</div>
+    </div>
+  </div>
+
+  <!-- Main Content (Page 1 - after unlock) -->
+  <div class="wrap" id="content" style="display:none">
+    <header>
+      <div class="logo">💖</div>
+      <div>
+        <h1>Happy Monthsary!</h1>
+        <p class="lead">A celebration of us since March 7, 2025 💕</p>
+      </div>
+    </header>
+    <section class="hero">
+      <div class="card">
+        <div class="message">
+          <p>We've been together for:</p>
+          <div class="big-count" id="monthsCount">0 Months</div>
+          <div class="monthsary-date" id="monthsaryDate"></div>
+          <p>and counting 💞</p>
+          <button class="unlock" onclick="showMessage()">Open Message 💌</button>
+        </div>
+      </div>
+      <div class="slideshow">
+        <div class="slide active" style="background-image:url('Gemini_Generated_Image_w0g5viw0g5viw0g5.png')"></div>
+        <div class="slide" style="background-image:url('9f9af963-10d5-4b0a-b7cc-d6792de5cd1c.png')"></div>
+        <div class="slide" style="background-image:url('FB_IMG_1745126040039.jpg')"></div>
+        <div class="slide" style="background-image:url('IMG_20241129_155701_060.jpg')"></div>
+      </div>
+    </section>
+    <footer>
+      <span>Made with 💖 for you</span>
+      <span>Code: 030725</span>
+    </footer>
+  </div>
+
+  <script>
+    // --- Lock keypad logic ---
+    const correctCode = "030725";
+    let inputCode = "";
+    const codeDots = document.getElementById("codeDots");
+    const keypad = document.getElementById("keypad");
+
+    // Render dots for code
+    function renderDots() {
+      codeDots.innerHTML = "";
+      for (let i=0;i<6;i++) {
+        let dot = document.createElement('div');
+        dot.className = 'dot' + (i < inputCode.length ? ' active':'');
+        codeDots.appendChild(dot);
+      }
+    }
+    renderDots();
+
+    // Create keypad
+    const btnVals = [
+      "1","2","3",
+      "4","5","6",
+      "7","8","9",
+      "","0","⌫"
+    ];
+    btnVals.forEach((val,i)=>{
+      let btn = document.createElement("button");
+      btn.className = "keypad-btn";
+      if (val === "⌫") { btn.className += " back"; }
+      btn.innerHTML = val;
+      btn.onclick = ()=>{
+        if (val === "⌫") {
+          inputCode = inputCode.slice(0,-1);
+        } else if (val !== "" && inputCode.length < 6) {
+          inputCode += val;
+        }
+        renderDots();
+        if (inputCode.length === 6) {
+          if (inputCode === correctCode) {
+            document.getElementById('lock').style.opacity='0';
+            setTimeout(()=>{
+              document.getElementById('lock').style.display='none';
+              document.getElementById('content').style.display='block';
+            },600);
+          } else {
+            // wrong code: shake animation + clear
+            codeDots.style.animation = 'shake 0.3s';
+            setTimeout(()=>{codeDots.style.animation = '';inputCode="";renderDots();},400);
+          }
+        }
+      };
+      keypad.appendChild(btn);
+    });
+    // Add shake CSS
+    const style = document.createElement('style');
+    style.innerHTML="@keyframes shake{0%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}100%{transform:translateX(0);}}";
+    document.head.appendChild(style);
+
+    // --- Message page logic ---
+    function showMessage(){
+      document.getElementById('messagePage').classList.add('active');
+    }
+
+    function goBackToMain(){
+      document.getElementById('messagePage').classList.remove('active');
+    }
+
+    // --- Monthsary calculation logic ---
+    function updateMonthsary(){
+      const startDate = new Date(2025,2,7); // March 7, 2025
+      const now = new Date();
+
+      // Months passed, account for date
+      let currentMonthsary = 0;
+      let monthsaryDate = new Date(startDate);
+
+      while (monthsaryDate <= now) {
+        currentMonthsary++;
+        monthsaryDate = new Date(startDate.getFullYear(), startDate.getMonth() + currentMonthsary, startDate.getDate());
+      }
+      // For count, subtract one unless exact date
+      const displayMonths = currentMonthsary > 1 ? currentMonthsary - 1 : 0;
+      document.getElementById('monthsCount').textContent = displayMonths + " Month" + (displayMonths !== 1 ? "s":"");
+
+      // Next/current monthsary date formatted MM/DD/YYYY
+      const nextMonthsary = new Date(startDate.getFullYear(), startDate.getMonth() + displayMonths, startDate.getDate());
+      const formattedMonthsary = `${nextMonthsary.toLocaleString('default', { month: 'long' })} ${String(nextMonthsary.getDate()).padStart(2, '0')}, ${nextMonthsary.getFullYear()}`;
+      document.getElementById('monthsaryDate').textContent = "Monthsary Date: " + formattedMonthsary;
+    }
+    updateMonthsary();
+
+    // --- Slideshow logic ---
+    const slides=document.querySelectorAll('.slide');
+    let index=0;
+    setInterval(()=>{
+      slides[index].classList.remove('active');
+      index=(index+1)%slides.length;
+      slides[index].classList.add('active');
+    },4000);
+  </script>
+</body>
+</html>
